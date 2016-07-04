@@ -1,117 +1,201 @@
 $(document).ready (function(){
 
-	$('.reset').click(function() {
+  	$('.reset').click(function() {
 		location.reload(true);		
 	});
 	var numCorrect = 0;
-$(".start").click(Startquestion);
+    	var currentQuestion = 0;
 
-function Startquestion () 
-{
-//wrapping object variable in function. I hate Global variable.
-$(".quiz-wrapper").css("display", "block");
+ $(".quiz-wrapper").css("display", "block");
 
 $(".start").css("display","none");
 
-	var ObjQuestion = [{
-		question: "1. What does HTML stand for?", 
-		answers:["Hyper Text MarkUp Language", "Hotmail", "How to make Lasagna", "Hyper Text Language"],
-		qNum: 0,
-		correct: 0
+
+var Bartender = function () 
+{
+//wrapping object variable in function. I hate Global variable.
+
+
+	this.ObjQuestion = [{
+		question: "1. Do ye like yer drinks strong?", 
+	     answers:["Yes","No"],
+	     	Taste:"strong"
+	    
 		},
 		{
-		question:"2.How Many tags are in a regular element?",
-		answers:["1", "2", "3", "4"],
-		qNum: 1,
-		correct:1
+		question:"2.Do ye like it with a salty tang?",
+		answers:["Yes","No"],
+		  Taste: "salty"
+		
 		},
 		{
-		question:"3.What is the correct syntax for referring to an external script called xxx.js?",
-		answers:["script href=xxx.js", "script src=xxx.js", "script name=xxx.js", "script path=xxx.js"] ,
-		qNum: 2,
-		correct:1
+		question:"3.Are ye a lubber who likes it bitter?",
+	  	answers:["Yes","No"] ,
+	  	Taste:"bitter"
+		 
 		},
 		{
-		question:"4. How do you create a function in JavaScript?",		
-		answers:["function:myFunction()", " function = myFunction()", " function myFunction()", " Function()"],
-		qNum: 3,
-		correct: 2
+		question:"4. Would ye like a bit of sweetness with yer poison?",		
+	     answers:["Yes","No"],
+	      	Taste: "sweet"
+		 
 		},
 		{ 
-		question:"5. How to write an IF statement for executing some code if i is NOT equal to 5?",
-		answers:["if(i!=5)", "if(i=!5)", "if(i=5)", "if (inot5"],
-		qNum: 4,
-		correct: 1
-		
-
+		question:"5. Are ye one for a fruity finish?",
+	     answers:["Yes","No"],
+	     	Taste: "fruit"
+		 
 
 		}]
-//declare global vars
-console.log(ObjQuestion);
+     this.userPreferences=[];
+	}
+
+Bartender.prototype.createDrink =function (pantryobj) { 
+   var Objprop ;
+   this.PreparedDrink =[];
+  //console.log("this is the length" + pantryobj.length);
+   //get the user preferance and loop through pantry to make the drink
+     
+
+var DrinkIngredeint="";
+
+var count =pantryobj.ingredients.length
+for ( i=0;i<Objbartender.userPreferences.length;i++)
+ {
+ 	for (j=0;j<count;j++) {
+           if(this.userPreferences[i] == pantryobj.ingredients[j].category) {
+  
+                           this.PreparedDrink.push( pantryobj.ingredients[j].name);
+           }
+
+      }
+         DrinkIngredeint += this.PreparedDrink[Math.floor(Math.random() * this.PreparedDrink.length)] + "  "; 
+
+      console.log(this.PreparedDrink);
+      console.log(DrinkIngredeint);
+
+     // console.log("This is " + finaldrink);
+    }
+
+    Objbartender.DrinkIngredeint = DrinkIngredeint;
+ 
 
 
-	var currentQuestion = 0;
-    //populate question and answers
-CreateQuestion(ObjQuestion,currentQuestion,numCorrect);
+  
+
 }
 
 
- function CreateQuestion(ObjQuestion,currentQuestion) {
-
-	$("#quiz h3").html(ObjQuestion[currentQuestion].question);
-	$("label").html(ObjQuestion[currentQuestion].answers[0]);
-	$("#answerTwo + label").html(ObjQuestion[currentQuestion].answers[1]);
-	$("#answerThree + label").html(ObjQuestion[currentQuestion].answers[2]);
-	$("#answerFour + label").html(ObjQuestion[currentQuestion].answers[3]);
-//events
 
 
+
+function Ingredient(name, category){
+  this.name = name;
+  this.category = category;
+}
+
+	var Pantry = function(ingredients) {
+            this.ingredients =ingredients;
+	    }
+var myPantry = new Pantry(
+  [
+  //adding two at once.
+    new Ingredient('glug of Rum', 'strong'),
+    new Ingredient('slug of Whiskey', 'strong'),
+    new Ingredient('splash of Gin', 'strong'),
+    new Ingredient('olive on a stick', 'salty'),
+    new Ingredient('salt-dusted rim', 'salty'),
+    new Ingredient('rasher of bacon', 'salty'),
+    new Ingredient('shake of bitters', 'bitter'),
+    new Ingredient('splash of tonic', 'bitter'),
+    new Ingredient('twist of lemon peel', 'bitter'),
+    new Ingredient('sugar cube', 'sweet'),
+    new Ingredient('spoonful of honey', 'sweet'),
+    new Ingredient('splash of Cola', 'sweet'),
+    new Ingredient('slick of orange', 'fruity'),
+    new Ingredient('dash of cassis', 'sweet'),
+    new Ingredient('cherry on top', 'sweet')
+  ]
+);
+
+
+
+var Objbartender = new Bartender();
+
+$(".start").click(CreateQuestion(Objbartender));
+
+
+    //populate question and answers
+//CreateQuestion(ObjQuestion,currentQuestion,numCorrect);
+//}
+
+
+ function CreateQuestion(Objbartender) {
+ 	//alert(currentQuestion);
+
+ 	if (currentQuestion <=4 )
+ {   // for (var i=0;i<Objbartender.ObjQuestion.length;i++) {
+	     $("#quiz h3").html(Objbartender.ObjQuestion[currentQuestion].question);
+	     $("label").html(Objbartender.ObjQuestion[currentQuestion].answers[0]);
+	     $("#answerTwo + label").html(Objbartender.ObjQuestion[currentQuestion].answers[1]);
+
+	     console.log(Objbartender.userPreferences);
+
+
+  }
+  else {
+
+   
+
+
+  }
+   //}
+}
 	//onclick next
 	$(".next").click(function(){
-		$(".summary").empty();
-		var radioSelect = $('input:radio[name=answer]:checked').val();
-		var rightAnswer = ObjQuestion[currentQuestion].correct;
-		
-		if (radioSelect === undefined ){
-			$('.message-no-guess').css('display', 'block');
+		if (currentQuestion <=4) {
+	         	console.log("next click currentQuestion:" + currentQuestion);
+
+		     $(".summary").empty();
+		     var radioSelect = $('input:radio[name=answer]:checked').val();
+	//	var rightAnswer = ObjQuestion[currentQuestion].correct;
+		//alert(radioSelect);
+		     if (radioSelect === undefined ){
+		     	    $('.message-no-guess').css('display', 'block');
 				}
-		else{
-			$('.message-no-guess').css('display', 'none');
+		    else{
+			      $('.message-no-guess').css('display', 'none');
+	        	//	alert(Objbartender.ObjQuestion[currentQuestion].Taste);
+		          if (radioSelect =="Yes") {
+
+		  	          Objbartender.userPreferences.push(Objbartender.ObjQuestion[currentQuestion].Taste); 
+
+                  }
+
+  
+        if (currentQuestion == 4 )
+          { 
+                Objbartender.createDrink(myPantry)
+              $(".quiz-wrapper").css("display", "none");
+			  $(".results").css("display", "block");
 			
-			currentQuestion ++; 
-			if (radioSelect == rightAnswer ) {
-				numCorrect ++;
-				console.log("correct! " + numCorrect);
-				$(".summary").append("Right answer!");
-				}
-			// 
-			else {
-				var CorrectAnswer= ObjQuestion[currentQuestion-1].answers[rightAnswer];
+
+                results();
+
+          } 
+			 currentQuestion++;
+			CreateQuestion(Objbartender); 
+	
 		
-				
-                   	//	console.log("The correct answer is " + CorrectAnswer);
 
-				$(".summary").append('Wrong answer The Correct answer was : '+ CorrectAnswer);
-				} 
+			} //else ending
+		
+ }
 
-				//populate next question function
-			 	
-			 //	
-			};
-			setTimeout(function(){
-			 		nextQuestion(ObjQuestion,currentQuestion)}, 1000);
-		//	CreateQuestion(ObjQuestion,currentQuestion);
-	});
-	//enter key
-	$(document).keydown(function( event ){
-		if (event.which == 13){
-			event.preventDefault();
-			console.log('enter key pressed');
-			//call click function
-			$('.next').click();
-			};
-	});
+
 	//next question
+	
+
 	function nextQuestion(ObjQuestion,currentQuestion){
 		if (currentQuestion > 4){
 			$(".quiz-wrapper").css("display", "none");
@@ -132,15 +216,20 @@ CreateQuestion(ObjQuestion,currentQuestion,numCorrect);
 	}
 
 	//results function,
+	
+
 	function results(){
 		//console.log("results!");
-		if (numCorrect == 1 ){ $("#amountRight").html(numCorrect + " blackheart "); }
-		        else {$("#amountRight").html(numCorrect );}
-
+		alert("Display the result");
+		if (Objbartender.userPreferences.length >  0 ){ $("#amountRight").html( Objbartender.DrinkIngredeint); }
+		       // else {$("#amountRight").html(numCorrect );}
+    
 		
+
 	}
    
 	//reset quiz
-}
+//}
 
+});
 });

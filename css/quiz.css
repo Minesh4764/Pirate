@@ -20,9 +20,13 @@ header {
 }
 header p:first-of-type {
 	 margin: -40px 0 -8px;
-	 font-size: 1.5em;
+	 font-size: 1.2em;
 }
 
+.head {
+	font-size: 1.5em;
+
+}
 .start{
 	display:block;
     height: 30px;
@@ -39,9 +43,13 @@ header p:first-of-type {
 	margin: 0px auto;
 	align:center;
 }
+.intro {
+
+	margin:40px;
+}
 
 h1{
-	font-size: 2em;
+	
 }
 header img{
 	border: 5px solid #000;
